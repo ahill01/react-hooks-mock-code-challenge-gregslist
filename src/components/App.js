@@ -5,7 +5,7 @@ import ListingsContainer from "./ListingsContainer";
 function App() {
 const [itemsList, setItemsList] = useState([])
 const [searchTerm, setSearchTerm] = useState("")
-const [filteredList, setFilteredList] = useState("")
+const [filteredList, setFilteredList] = useState([])
 
 useEffect(() => {
   fetch("http://localhost:6001/listings")
@@ -43,9 +43,14 @@ function handleSubmit(e) {
   setFilteredList(filteredList)
 }
 
+function sortFunction(){
+  // filteredList.sort((a.location, b.location) => {} )
+  console.log("sorting")
+}
+
   return (
     <div className="app">
-      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} handleSubmit ={handleSubmit} itemsList={itemsList} />
+      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} handleSubmit ={handleSubmit} itemsList={itemsList} sortFunction={sortFunction}/>
       <ListingsContainer itemsList={filteredList} setItemsList={setItemsList} deleteItem={deleteItem} />
     </div>
   );

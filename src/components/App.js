@@ -4,7 +4,8 @@ import ListingsContainer from "./ListingsContainer";
 
 function App() {
 const [itemsList, setItemsList] = useState([])
-
+const [searchTerm, setSearchTerm] = useState("")
+const [filteredList, setFilteredList] = useState([])
 useEffect(() => {
   fetch("http://localhost:6001/listings")
   .then(res => res.json())
@@ -21,7 +22,6 @@ const configObj = {
 
 fetch(`http://localhost:6001/listings/${id}`, configObj)
 .then(res => res.json())
-.then(thing => console.log(thing))
 
   //update itemsList
   const newList = itemsList.filter(item => item.id !== id)
@@ -31,8 +31,8 @@ fetch(`http://localhost:6001/listings/${id}`, configObj)
 
   return (
     <div className="app">
-      <Header />
-      <ListingsContainer itemsList={itemsList} setItemsList={setItemsList} deleteItem={deleteItem} />
+      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} setFilteredList={setFilteredList} itemsList={itemsList} />
+      <ListingsContainer itemsList={filteredList} setItemsList={setItemsList} deleteItem={deleteItem} />
     </div>
   );
 }

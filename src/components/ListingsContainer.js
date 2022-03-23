@@ -1,7 +1,7 @@
 import React from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer({itemsList, setItemsList}) {
+function ListingsContainer({itemsList, setItemsList, deleteItem}) {
 
 function makeListings(){
   itemsList.map(item => {
@@ -12,7 +12,7 @@ function makeListings(){
   return (
     <main>
       <ul className="cards">
-        {itemsList.map(item => <ListingCard key={item.id} item ={item}/>)}
+        {itemsList.map(item => <ListingCard key={item.id} deleteItem={deleteItem} item ={item}/>)}
       </ul>
     </main>
   );

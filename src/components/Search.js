@@ -1,18 +1,9 @@
 import React from "react";
 
-function Search({searchTerm, setSearchTerm, setFilteredList,itemsList}) {
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log('clicked')
-   const filteredList = itemsList.filter(item => {
-    return item.description.includes(searchTerm)})
-    debugger;
-    setFilteredList(filteredList)
-  }
+function Search({searchTerm, setSearchTerm, handleSubmit,itemsList}) {
 
   return (
-    <form className="searchbar" onSubmit={handleSubmit}>
+    <form className="searchbar" onSubmit={(e) => handleSubmit(e)}>
       <input
         type="text"
         id="search"

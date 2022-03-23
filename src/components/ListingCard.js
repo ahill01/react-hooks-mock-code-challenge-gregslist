@@ -14,11 +14,11 @@ function ListingCard({item, deleteItem}) {
         <span className="price">$0</span>
         <img src={image} alt={description} />
       </div>
-      <div className="details" onClick={favoriteItem} >
+      <div className="details" >
         {favorite ? (
-          <button className="emoji-button favorite active">★</button>
+          <button onClick={favoriteItem} className="emoji-button favorite active">★</button>
         ) : (
-          <button className="emoji-button favorite">☆</button>
+          <button onClick={favoriteItem} className="emoji-button favorite">☆</button>
         )}
         <strong>{description}</strong>
         <span> · {location}</span>

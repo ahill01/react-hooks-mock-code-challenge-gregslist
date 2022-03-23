@@ -5,11 +5,13 @@ import ListingsContainer from "./ListingsContainer";
 function App() {
 const [itemsList, setItemsList] = useState([])
 const [searchTerm, setSearchTerm] = useState("")
-const [filteredList, setFilteredList] = useState([])
+const [filteredList, setFilteredList] = useState("")
+
 useEffect(() => {
   fetch("http://localhost:6001/listings")
   .then(res => res.json())
-  .then(items => setItemsList(items))
+  .then(items => {setItemsList(items)
+  setFilteredList(items)})
 },[])
 
 function deleteItem(e, id){
@@ -23,15 +25,27 @@ const configObj = {
 fetch(`http://localhost:6001/listings/${id}`, configObj)
 .then(res => res.json())
 
-  //update itemsList
-  const newList = itemsList.filter(item => item.id !== id)
-  setItemsList(newList)
+const newList = itemsList.filter(item => item.id !== id)
+setItemsList(newList)
+  
   //
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log('clicked')
+  console.log(searchTerm)
+  const filteredList = itemsList.filter(item => { 
+    if(searchTerm === "") {
+      return true} else {
+    return item.description.includes(searchTerm)}
+    })
+  setFilteredList(filteredList)
 }
 
   return (
     <div className="app">
-      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} setFilteredList={setFilteredList} itemsList={itemsList} />
+      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} handleSubmit ={handleSubmit} itemsList={itemsList} />
       <ListingsContainer itemsList={filteredList} setItemsList={setItemsList} deleteItem={deleteItem} />
     </div>
   );
